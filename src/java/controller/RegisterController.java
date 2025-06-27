@@ -43,7 +43,8 @@ public class RegisterController extends HttpServlet {
                 request.setAttribute("ERROR", "Invalid email format.");
             } else if (password == null || password.trim().isEmpty()) {
                 request.setAttribute("ERROR", "Password is required.");
-            } else if (password.length() < 6) {
+            } else if (password.length() < 6) { 
+             
                 request.setAttribute("ERROR", "Password must be at least 6 characters.");
             } else if (!password.equals(confirmPassword)) {
                 request.setAttribute("ERROR", "Password and confirm password do not match.");
