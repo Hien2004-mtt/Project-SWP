@@ -7,11 +7,12 @@ package dao;
 import dto.OrderDTO;
 import java.util.ArrayList;
 import java.util.List;
-import utils.DBUtil;
+import utils.DBUtils;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import utils.DBUtils;
 
 /**
  *
@@ -21,7 +22,7 @@ public class AdminDAO {
     public double getTotalRevenue() throws ClassNotFoundException {
         double totalRevenue = 0;
         String sql = "SELECT SUM(TotalAmount) FROM Orders WHERE Status = 'Completed'";
-        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 totalRevenue = rs.getDouble(1);
@@ -34,7 +35,7 @@ public class AdminDAO {
      public int getTotalProducts() throws ClassNotFoundException {
         int totalProducts = 0;
         String sql = "SELECT COUNT(*) FROM Products WHERE IsDelete = 0";
-        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 totalProducts = rs.getInt(1);
@@ -47,7 +48,7 @@ public class AdminDAO {
      public int getTotalUsers() throws ClassNotFoundException {
         int totalUsers = 0;
         String sql = "SELECT COUNT(*) FROM Users WHERE IsActive = 1";
-        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 totalUsers = rs.getInt(1);
@@ -64,7 +65,7 @@ public class AdminDAO {
                 + "FROM Orders \n"
                 + "WHERE CAST(OrderDate AS DATE) = CAST(GETDATE() AS DATE) \n"
                 + "  AND Status = 'Completed';";
-        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 totalProducts = rs.getInt(1);
@@ -78,7 +79,7 @@ public class AdminDAO {
     public int getPendingOrders() throws ClassNotFoundException {
         int totalProducts = 0;
         String sql = "SELECT COUNT(*) FROM Orders WHERE Status = 'Pending'";
-        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 totalProducts = rs.getInt(1);
@@ -94,7 +95,7 @@ public class AdminDAO {
         String sql = "SELECT COUNT(*) \n"
                 + "FROM Products \n"
                 + "WHERE StockQuantity < 5; ";
-        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 totalOrders = rs.getInt(1);
@@ -131,7 +132,7 @@ public class AdminDAO {
                 + "GROUP BY MonthList.Month\n"
                 + "ORDER BY MonthList.Month;";
 
-        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 monthlyRevenue.add(rs.getInt("TotalRevenue"));
@@ -145,7 +146,7 @@ public class AdminDAO {
     public List<OrderDTO> getNewOrders() throws ClassNotFoundException {
         List<OrderDTO> newOrders = new ArrayList<>();
         String sql = "SELECT TOP 5 * FROM Orders ORDER BY OrderDate DESC";  // Corrected query
-        try (Connection conn = DBUtil.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 newOrders.add(new OrderDTO(
