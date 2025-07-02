@@ -23,6 +23,60 @@ import static java.time.temporal.TemporalAdjusters.next;
  * @author athuu
  */
 public class ProductDAO {
+    
+    public List<ProductDTO> getBestSellers(int limit) {
+        List<ProductDTO> list = new ArrayList<>();
+        String sql = "SELECT TOP (?) * FROM Products WHERE IsBestSeller = 1 ORDER BY Sold DESC";
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductDTO p = new ProductDTO(
+                        rs.getInt("ProductID"),
+                        rs.getString("ProductName"),
+                        rs.getString("Origin"),
+                        rs.getString("ImageUrl"),
+                        rs.getDouble("DiscountPercent"),
+                        rs.getDouble("Price"),
+                        rs.getDouble("DiscountPrice"),
+                        rs.getInt("Sold"),
+                        rs.getDouble("Rating"),
+                        rs.getInt("ReviewCount")
+                );
+                list.add(p);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public List<ProductDTO> getHotProducts(int limit) {
+        List<ProductDTO> list = new ArrayList<>();
+        String sql = "SELECT TOP (?) * FROM Products WHERE IsHot = 1 ORDER BY CreatedAt DESC";
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductDTO p = new ProductDTO(
+                        rs.getInt("ProductID"),
+                        rs.getString("ProductName"),
+                        rs.getString("Origin"),
+                        rs.getString("ImageUrl"),
+                        rs.getDouble("DiscountPercent"),
+                        rs.getDouble("Price"),
+                        rs.getDouble("DiscountPrice"),
+                        rs.getInt("Sold"),
+                        rs.getDouble("Rating"),
+                        rs.getInt("ReviewCount")
+                );
+                list.add(p);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
     public List<ProductDTO> getFilteredProducts(String name, String category, String sort, int page, int pageSize) {
         List<ProductDTO> list = new ArrayList<>();
