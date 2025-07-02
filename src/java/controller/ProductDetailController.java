@@ -47,7 +47,7 @@ public class ProductDetailController extends HttpServlet {
             ProductDAO dao = new ProductDAO();
             CartDAO cartDAO = new CartDAO();
             ProductDetailDTO product = dao.getProductById(productID);
-            List<ProductDetailDTO> relatedProducts = dao.getRelatedProducts(productID);
+           List<ProductDetailDTO> relatedProducts = dao.getRelatedProducts(productID);
             List<ImageProductDTO> imageProducts = dao.getProductImages(productID);
             List<ReviewDTO> reviews = dao.getProductReviews(productID);
             HttpSession session = request.getSession();
@@ -59,7 +59,7 @@ public class ProductDetailController extends HttpServlet {
                 request.setAttribute("cartCount", cartCount);
             }
             request.setAttribute("product", product);
-            request.setAttribute("relatedProducts", relatedProducts);
+           request.setAttribute("relatedProducts", relatedProducts);
             request.setAttribute("imageProducts", imageProducts);
             request.setAttribute("reviews", reviews);
             request.getRequestDispatcher("productDetail.jsp").forward(request, response);

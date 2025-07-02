@@ -199,7 +199,7 @@ public class ProductDAO {
     }
 
     public ProductDetailDTO getProductById(int productID) throws Exception {
-       String sql = "SELECT * FROM Products WHERE ProductID = ?";
+        String sql = "SELECT * FROM Products WHERE ProductID = ?";
         try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, productID);
             ResultSet rs = ps.executeQuery();

@@ -337,7 +337,7 @@
                         <c:forEach var="p" items="${productList}">
                             <div class="col">
                                 <div class="card product-card position-relative">
-                                    <a href="" class="text-decoration-none text-dark">
+                                    <a href="MainController?action=ProductDetail&productID=${p.id}" class="text-decoration-none text-dark">
 
                                         <c:if test="${p.discountPercent != 0}">
                                             <span class="badge-discount">-${p.discountPercent}%</span>

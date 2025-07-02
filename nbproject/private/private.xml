@@ -3,9 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Asus/Downloads/VegetMarket/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Asus/Downloads/VegetMarket/src/java/controller/OrderHistoryController.java</file>
-            <file>file:/C:/Users/Asus/Downloads/VegetMarket/nbproject/build-impl.xml</file>
+            <file>file:/C:/Users/Asus/Downloads/VegetMarket/src/java/controller/ProductController.java</file>
+            <file>file:/C:/Users/Asus/Downloads/VegetMarket/web/homepage.jsp</file>
+            <file>file:/C:/Users/Asus/Downloads/VegetMarket/web/product.jsp</file>
+            <file>file:/C:/Users/Asus/Downloads/VegetMarket/src/java/controller/ProductDetailController.java</file>
+            <file>file:/C:/Users/Asus/Downloads/VegetMarket/src/java/controller/MainController.java</file>
         </group>
     </open-files>
 </project-private>

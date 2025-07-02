@@ -9,16 +9,17 @@ package dto;
  * @author Asus
  */
 public class ProductDetailDTO {
-    private int productID;
+     private int productID;
     private String productName;
     private String description;
     private int categoryID;
     private double price;
     private String unit;
     private int stockQuantity;
-    private String thumbnaiUrl;
+    private String thumbnailUrl;
     private boolean isAvailable;
     private int discountPercent;
+    private double discountPrice;
     private double originalPrice;
     private double discount;
     private int sold;
@@ -32,7 +33,7 @@ public class ProductDetailDTO {
     public ProductDetailDTO() {
     }
 
-    public ProductDetailDTO(int productID, String productName, String description, int categoryID, double price, String unit, int stockQuantity, String thumbnaiUrl, boolean isAvailable, int discountPercent, double originalPrice, double discount, double rating, int sold, double aDouble4, int reviewCount, String origin, String imageUrl, boolean isHot, boolean isBestSeller) {
+    public ProductDetailDTO(int productID, String productName, String description, int categoryID, double price, String unit, int stockQuantity, String thumbnailUrl, boolean isAvailable, int discountPercent, double discountPrice, double originalPrice, double discount, int sold, double rating, int reviewCount, String origin, String imageUrl, boolean isHot, boolean isBestSeller) {
         this.productID = productID;
         this.productName = productName;
         this.description = description;
@@ -40,9 +41,10 @@ public class ProductDetailDTO {
         this.price = price;
         this.unit = unit;
         this.stockQuantity = stockQuantity;
-        this.thumbnaiUrl = thumbnaiUrl;
+        this.thumbnailUrl = thumbnailUrl;
         this.isAvailable = isAvailable;
         this.discountPercent = discountPercent;
+        this.discountPrice = discountPrice;
         this.originalPrice = originalPrice;
         this.discount = discount;
         this.sold = sold;
@@ -110,12 +112,12 @@ public class ProductDetailDTO {
         this.stockQuantity = stockQuantity;
     }
 
-    public String getThumbnaiUrl() {
-        return thumbnaiUrl;
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
     }
 
-    public void setThumbnaiUrl(String thumbnaiUrl) {
-        this.thumbnaiUrl = thumbnaiUrl;
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
     }
 
     public boolean isIsAvailable() {
@@ -132,6 +134,14 @@ public class ProductDetailDTO {
 
     public void setDiscountPercent(int discountPercent) {
         this.discountPercent = discountPercent;
+    }
+
+    public double getDiscountPrice() {
+        return discountPrice;
+    }
+
+    public void setDiscountPrice(double discountPrice) {
+        this.discountPrice = discountPrice;
     }
 
     public double getOriginalPrice() {
@@ -206,9 +216,7 @@ public class ProductDetailDTO {
         this.isBestSeller = isBestSeller;
     }
 
-    @Override
-    public String toString() {
-        return "ProductDetailDTO{" + "productID=" + productID + ", productName=" + productName + ", description=" + description + ", categoryID=" + categoryID + ", price=" + price + ", unit=" + unit + ", stockQuantity=" + stockQuantity + ", thumbnaiUrl=" + thumbnaiUrl + ", isAvailable=" + isAvailable + ", discountPercent=" + discountPercent + ", originalPrice=" + originalPrice + ", discount=" + discount + ", sold=" + sold + ", rating=" + rating + ", reviewCount=" + reviewCount + ", origin=" + origin + ", imageUrl=" + imageUrl + ", isHot=" + isHot + ", isBestSeller=" + isBestSeller + '}';
-    }
+   
+    
     
 }
