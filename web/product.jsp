@@ -1,28 +1,29 @@
 <%-- 
     Document   : product
-    Created on : Jun 5, 2025, 6:36:46 PM
-    Author     : xuant
+    Created on : Jun 25, 2025, 8:54:08 AM
+    Author     : athuu
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Veggie Market - Product</title>
+        <title>Veggie Market</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
         <style>
             body {
                 font-family: 'Roboto', sans-serif;
             }
+
             .footer {
                 background-color: #4b8f3c;
                 color: white;
                 padding: 30px 0;
             }
+
             .footer a {
                 color: #d0f0c0;
                 text-decoration: none;
@@ -33,6 +34,7 @@
                 left: 50%;
                 transform: translateX(-50%);
             }
+
             .navbar-nav .nav-link {
                 color: #4b8f3c;
                 font-weight: 500;
@@ -40,19 +42,23 @@
                 padding: 0.5rem 1rem;
                 transition: all 0.3s ease;
             }
+
             .navbar-nav .nav-link:hover {
                 color: orange;
                 font-size: 1rem;
                 text-decoration: underline;
             }
+
             .navbar-nav .nav-link.active {
                 color: orange;
                 font-weight: 700;
                 border-bottom: 2px solid orange;
             }
+
             .cart-icon {
                 position: relative;
             }
+
             .cart-icon .bi-cart3 {
                 font-size: 2rem;
             }
@@ -70,7 +76,6 @@
                 position: relative;
                 display: inline-block;
             }
-
             .cart-dropdown {
                 display: none;
                 position: absolute;
@@ -117,6 +122,7 @@
                 font-weight: 500;
             }
 
+
             .cart-item-quantity {
                 font-size: 12px;
                 color: gray;
@@ -130,9 +136,11 @@
             .user-dropdown .bi-person-circle {
                 font-size: 1.7rem;
             }
+
             .user-dropdown:hover .dropdown-menu {
                 display: block;
             }
+
             .dropdown-menu {
                 right: 0;
                 left: auto;
@@ -203,6 +211,7 @@
                 color: #888;
                 font-size: 0.9rem;
             }
+
             .product-card .add-cart {
                 background: #fdd835;
                 border: 1px solid #ccc;
@@ -262,124 +271,86 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                     <ul class="navbar-nav navbar-nav-center">
-                        <li class="nav-item"><a class="nav-link" href="MainController?action=Home">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="MainController?action=Product">Products</a></li>
-                       <li class="nav-item"><a class="nav-link" href="MainController?action=Chat">Chats</a></li>                        
-                    </ul>
+                        <li class="nav-item"><a class="nav-link" href="HomeController">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="ProductController">Products</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#">About</a></li>      
+                    </ul> 
                 </div>
+            </div>
+            <div class="d-flex align-items-center gap-4">
                 <div class="d-flex align-items-center gap-4">
-                    <div class="cart-icon">
-                        <div class="cart-icon position-relative">
-                            <a href="MainController?action=ViewCart" class="text-dark position-relative" id="cartIcon">
-                                <i class="bi bi-cart3 fs-5"></i>
-                                <span class="badge">${empty cartCount ? 0 : cartCount}</span>
-                            </a>
-
-                            <!-- Dropdown hover -->
-                            <div class="cart-dropdown" id="cartDropdown">
-                                <c:forEach var="item" items="${cartItems}">
-                                    <a href="MainController?action=ProductDetail&productID=${item.productID}" class="text-decoration-none text-dark">
-                                        <div class="cart-item d-flex align-items-center mb-2">
-                                            <img src="${item.imageUrl}" class="me-2 rounded" alt="Product" width="50" height="50">
-                                            <div>
-                                                <p class="mb-0 fw-semibold">${item.productName}</p>
-                                                <small>Qty: ${item.quantity}</small>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </c:forEach>
-                                <a href="MainController?action=ViewCart" class="btn btn-sm btn-success w-100 mt-2">View Cart</a>
-
+                    <c:choose>                       
+                        <c:when test="${not empty sessionScope.LOGIN_USER}">    
+                            <div class="user-dropdown dropdown">
+                                <a href="#" class="text-dark d-flex align-items-center gap-1" data-bs-toggle="dropdown">
+                                    <i class="bi bi-person-circle fs-5"></i> <span class="fw-medium">${sessionScope.LOGIN_USER.fullName}</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="">Order History</a></li>                                       
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="">Logout</a></li>
+                                </ul>
                             </div>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-4">
-                        <c:choose>                       
-                            <c:when test="${not empty sessionScope.LOGIN_USER}">                             
-                                <div class="user-dropdown dropdown">
-                                    <a href="#" class="text-dark d-flex align-items-center gap-1" data-bs-toggle="dropdown">
-                                        <i class="bi bi-person-circle fs-5"></i> <span class="fw-medium">${sessionScope.LOGIN_USER.fullName}</span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                         <li><a class="dropdown-item" href="MainController?action=OrderHistory">Order History</a></li>    
-                                        <li><hr class="dropdown-divider"></li>
-                                        <li><a class="dropdown-item" href="MainController?action=Logout">Logout</a></li>
-                                    </ul>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="login.jsp" class="btn btn-outline-success">Login</a>
-                                <a href="register.jsp" class="btn btn-success">Register</a>
-                            </c:otherwise>
-                        </c:choose>
-                    </div>
-                </div>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="login.jsp" class="btn btn-outline-success">Login</a>
+                            <a href="register.jsp" class="btn btn-success">Register</a>
+                        </c:otherwise>
+                    </c:choose>
+                </div>            
             </div>
         </nav>
 
-
         <div class="container mt-4 px-4">
             <div class="row">
-                <!-- Sidebar left 30% -->
                 <div class="col-md-3 sidebar">
-                    <form action="MainController" method="get">                      
-                        <!-- Category Filter -->
-                        <h5>Categories</h5>
-                        <c:forEach var="c" items="${categories}">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="categoryId" value="${c.categoryId}" 
-                                       ${param.categoryId == c.categoryId ? "checked" : ""}>
-                                <label class="form-check-label">${c.categoryName}</label>
-                            </div>
-                        </c:forEach>
-
-                        <!-- Price Sort -->
+                    <form action="ProductController" method = "get">
+                        <!--price sort-->
                         <hr>
                         <h5>Sort by Price</h5>
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="sort" value="asc" 
                                    ${param.sort == 'asc' ? "checked" : ""}>
-                            <label class="form-check-label">Low to High</label>
+                            <label class="form-check-label">Low to High</label>       
                         </div>
+
                         <div class="form-check">
                             <input class="form-check-input" type="radio" name="sort" value="desc" 
                                    ${param.sort == 'desc' ? "checked" : ""}>
-                            <label class="form-check-label">High to Low</label>
+                            <label class="form-check-label"> High to Low</label>       
                         </div>
 
-                        <button type="submit" class="btn btn-success mt-3 w-100" name="action" value="Product">Apply Filters</button>
+                        <button type="submit" class="btn btn-success mt-3 w-100" name="action" value="" />Apply Filters</button>
                     </form>
                 </div>
 
-                <!-- Right content 70% -->
                 <div class="col-md-9">
                     <div class="search-bar">
-                        <form class="d-flex w-50" action="MainController" method="get">                          
+                        <form class="d-flex w-50" action="ProductController">
                             <input class="form-control me-2" type="search" name="search" placeholder="Search products..." value="${param.search}">
-                            <button class="btn btn-outline-success" type="submit" name="action" value="Product" >Search</button>
+                            <button class="btn btn-outline-success" type="submit" name="action" value="">Search</button>
                         </form>
                     </div>
 
                     <div class="section-title">All Product</div>
-
                     <div class="row row-cols-1 row-cols-md-3 g-4">
                         <c:forEach var="p" items="${productList}">
                             <div class="col">
                                 <div class="card product-card position-relative">
-                                    <a href="MainController?action=ProductDetail&productID=${p.id}" class="text-decoration-none text-dark">
+                                    <a href="" class="text-decoration-none text-dark">
+
                                         <c:if test="${p.discountPercent != 0}">
                                             <span class="badge-discount">-${p.discountPercent}%</span>
                                         </c:if>
-
                                         <img src="${p.imageUrl}" class="card-img-top" alt="${p.name}">
                                         <div class="view-icon"><i class="bi bi-eye"></i></div>
                                         <div class="card-body">
                                             <small class="text-muted">${p.origin}</small>
                                             <h6 class="mt-1">${p.name}</h6>
                                             <p class="mb-1">
-                                                <span class="price"><fmt:formatNumber value="${p.discountPrice}" type="currency" currencySymbol="₫"/></span>
+                                                <span class="price">${p.discountPrice}VND</span>
                                                 <c:if test="${p.discountPercent != 0}">
-                                                    <span class="original-price ms-2"><fmt:formatNumber value="${p.price}" type="currency" currencySymbol="₫"/></span>
+                                                    <span class="original-price ms-2">${p.price}VND</span>
                                                 </c:if>
                                             </p>
                                             <p class="mb-1">
@@ -395,69 +366,24 @@
                                             </p>
                                             <p class="text-muted">Sold: ${p.sold}</p>
                                     </a>
-                                    <form method="post" action="MainController">
-                                        <input type="hidden" name="userID" value="${sessionScope.loginUser.userID}" />
-                                        <input type="hidden" name="productID" value="${p.id}" />
-                                        <button type="submit" class="add-cart w-100" name="action" value="AddToCart">
-                                            ADD TO CART <i class="bi bi-bag-plus"></i>
-                                        </button>
-                                    </form>
-
                                 </div>
                             </div>
                         </div>
-                    </c:forEach>       
-
+                    </c:forEach>
                 </div>
-                <nav>
-                    <ul class="pagination justify-content-center mt-3">
-                        <c:forEach var="i" begin="1" end="${totalPages}">
-                            <li class="page-item ${i == currentPage ? 'active' : ''}">
-                                <a class="page-link" href="MainController?action=Product&page=${i}">${i}</a>
-                            </li>
-                        </c:forEach>
-                    </ul>
-                </nav>
+
+
             </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer class="footer text-center">
-        <div class="container">
-            <p class="mb-1">&copy; 2025 Veggie Market. All rights reserved.</p>
-            <small>Follow us on
-                <a href="#"><i class="bi bi-facebook"></i></a>
-                <a href="#"><i class="bi bi-instagram"></i></a>
-                <a href="#"><i class="bi bi-twitter"></i></a>
-            </small>
-        </div>
-    </footer>
-</body>
+            <footer class="footer text-center">
+                <div class="container">
+                    <p class="mb-1">&copy; 2025 Veggie Market. All rights reserved.</p>
+                    <small>Follow us on
+                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="#"><i class="bi bi-instagram"></i></a>
+                        <a href="#"><i class="bi bi-twitter"></i></a>
+                    </small>
+                </div>
+            </footer>
+    </body>
 </html>
-<script>
-    const cartIcon = document.getElementById("cartIcon");
-    const cartDropdown = document.getElementById("cartDropdown");
-    let hideTimeout;
 
-    cartIcon.addEventListener("mouseenter", () => {
-        clearTimeout(hideTimeout);
-        cartDropdown.style.display = "block";
-    });
-
-    cartIcon.addEventListener("mouseleave", () => {
-        hideTimeout = setTimeout(() => {
-            cartDropdown.style.display = "none";
-        }, 500); // 2 giây
-    });
-
-    cartDropdown.addEventListener("mouseenter", () => {
-        clearTimeout(hideTimeout);
-    });
-
-    cartDropdown.addEventListener("mouseleave", () => {
-        hideTimeout = setTimeout(() => {
-            cartDropdown.style.display = "none";
-        }, 500); // 2 giây
-    });
-</script>
