@@ -4,10 +4,7 @@
  */
 package dto;
 
-/**
- *
- * @author xuant
- */
+
 public class UserDTO {
     private int userID;
     private String fullName;

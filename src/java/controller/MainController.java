@@ -24,6 +24,8 @@ public class MainController extends HttpServlet {
      private static final String LOGIN_CONTROLLER = "LoginController";
      private static final String REGISTER = "Register";
      private static final String REGISTER_CONTROLLER ="RegisterController";
+     private static final String PRODUCTDETAIL = "ProductDetail";
+     private static final String PRODUCTDETAIL_CONTROLLER = "ProductDetailController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
@@ -34,9 +36,12 @@ public class MainController extends HttpServlet {
                 url = LOGIN_CONTROLLER;
             } else if (REGISTER.equals(action)) {
                 url = REGISTER_CONTROLLER;
+            }  else if (PRODUCTDETAIL.equals(action)) {
+              url = PRODUCTDETAIL_CONTROLLER;
             }else {
-                url = ERROR;
+                url = LOGIN_CONTROLLER;
             }
+        
         } catch (Exception e) {
             log("Error at MainController" + e.toString());
         } finally {
