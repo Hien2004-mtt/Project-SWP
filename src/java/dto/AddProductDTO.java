@@ -1,10 +1,13 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 package dto;
 
+/**
+ *
+ * @author Asus
+ */
 public class AddProductDTO {
     private int productID;
     private String productName;
@@ -15,11 +18,11 @@ public class AddProductDTO {
     private int stockQuantity;
     private String imageUrl;
     private String origin;
-    
-    public AddProductDTO(int productID1, String productName1, String description1, int categoryID1, double price1, int discountPercent1, int stockQuantity1, String imageUrl1, String origin1) {
+
+    public AddProductDTO() {
     }
-    
-    public AddProductDTO(int producID, String productName, String description, int categoryID, int discountPercent, int stockQuantity, String imageUrl, String origin) {
+
+    public AddProductDTO(int productID, String productName, String description, int categoryID, double price, int discountPercent, int stockQuantity, String imageUrl, String origin) {
         this.productID = productID;
         this.productName = productName;
         this.description = description;
@@ -39,6 +42,8 @@ public class AddProductDTO {
         this.productID = productID;
     }
 
+   
+
     public String getProductName() {
         return productName;
     }
@@ -51,8 +56,8 @@ public class AddProductDTO {
         return description;
     }
 
-    public void setDescroption(String descroption) {
-        this.description = descroption;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public int getCategoryID() {
@@ -103,6 +108,5 @@ public class AddProductDTO {
         this.origin = origin;
     }
     
-    }
-            
-
+    
+}
