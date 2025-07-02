@@ -22,9 +22,9 @@ public class LoginController extends HttpServlet {
     private static final String ERROR = "login.jsp";
     private static final String SUCCESS = "index.html";
     private static final int AD = 2;
-    private static final String AD_PAGE = "admin.jsp";
+    private static final String AD_PAGE = "MainController?action=dashboard";
     private static final int US = 1;
-    private static final String US_PAGE = "home.jsp";
+    private static final String US_PAGE = "MainController?action=Home";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

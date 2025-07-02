@@ -205,5 +205,10 @@ public class ProductDetailDTO {
     public void setIsBestSeller(boolean isBestSeller) {
         this.isBestSeller = isBestSeller;
     }
+
+    @Override
+    public String toString() {
+        return "ProductDetailDTO{" + "productID=" + productID + ", productName=" + productName + ", description=" + description + ", categoryID=" + categoryID + ", price=" + price + ", unit=" + unit + ", stockQuantity=" + stockQuantity + ", thumbnaiUrl=" + thumbnaiUrl + ", isAvailable=" + isAvailable + ", discountPercent=" + discountPercent + ", originalPrice=" + originalPrice + ", discount=" + discount + ", sold=" + sold + ", rating=" + rating + ", reviewCount=" + reviewCount + ", origin=" + origin + ", imageUrl=" + imageUrl + ", isHot=" + isHot + ", isBestSeller=" + isBestSeller + '}';
+    }
     
 }
