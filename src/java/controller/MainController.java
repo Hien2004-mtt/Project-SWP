@@ -34,6 +34,8 @@ public class MainController extends HttpServlet {
     private static final String VIEWCART_CONTROLLER = "ViewCartController";
     private static final String DELETEITEMCART = "DeleteItemCart";
     private static final String DELETEITEMCART_CONTROLLER = "CartDeleteController";
+    private static final String PRODUCT = "Product";
+    private static final String PRODUCT_CONTROLLER = "ProductController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -46,15 +48,14 @@ public class MainController extends HttpServlet {
                 url = REGISTER_CONTROLLER;
             } else if (PRODUCTDETAIL.equals(action)) {
                 url = PRODUCTDETAIL_CONTROLLER;
-            } else if (HOME.equals(action)) {
-
-                url = HOME_CONTROLLER;
             } else if (CART.equals(action)) {
-                 url= CART_CONTROLLER;
-            } else if(VIEWCART.equals(action)){
+                url = CART_CONTROLLER;
+            } else if (VIEWCART.equals(action)) {
                 url = VIEWCART_CONTROLLER;
-            }else if (DELETEITEMCART.equals(action)) {
+            } else if (DELETEITEMCART.equals(action)) {
                 url = DELETEITEMCART_CONTROLLER;
+            } else if (PRODUCT.equals(action)) {
+                url = PRODUCT_CONTROLLER;
             } else {
                 url = HOME_CONTROLLER;
             }
