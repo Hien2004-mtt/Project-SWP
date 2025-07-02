@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class RegisterController extends HttpServlet {
     
    private static final String SUCCESS = "login.jsp";
-   private static final String ERROR = "regisrer.jsp";
+   private static final String ERROR = "register.jsp";
    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {

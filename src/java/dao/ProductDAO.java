@@ -16,7 +16,7 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import static java.time.temporal.TemporalAdjusters.next;
+
 
 /**
  *
@@ -199,7 +199,7 @@ public class ProductDAO {
     }
 
     public ProductDetailDTO getProductById(int productID) throws Exception {
-        String sql = "SELECT * FROM Products WHERE ProductID =?";
+       String sql = "SELECT * FROM Products WHERE ProductID = ?";
         try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, productID);
             ResultSet rs = ps.executeQuery();
@@ -226,7 +226,6 @@ public class ProductDAO {
                         rs.getBoolean("IsHot"),
                         rs.getBoolean("IsBestSeller")
                 );
-
             }
         }
         return null;
@@ -267,7 +266,7 @@ public class ProductDAO {
         return list;
 
     }
-    public List<ImageProductDTO> getProductImages(int productID) throws ClassNotFoundException, SQLException{
+    public List<ImageProductDTO> getProductImages(int productID) {
         List<ImageProductDTO> list = new ArrayList<>();
         String sql = "SELECT * FROM ProductImages WHERE ProductID = ?";
         try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -284,7 +283,7 @@ public class ProductDAO {
         } catch (Exception e){
             e.printStackTrace();
         }
-        return null;
+        return list;
     }
     public List<ReviewDTO> getProductReviews(int productID){
         List<ReviewDTO> reviews = new ArrayList<>();
@@ -304,6 +303,62 @@ public class ProductDAO {
             e.printStackTrace();
         }
         return reviews;
+    }
+     public List<ProductDTO> getBestSellers(int limit) {
+        List<ProductDTO> list = new ArrayList<>();
+        String sql = "SELECT TOP (?) * FROM Products WHERE IsBestSeller = 1 ORDER BY Sold DESC";
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductDTO p = new ProductDTO(
+                        rs.getInt("ProductID"),
+                        rs.getString("ProductName"),
+                        rs.getString("Origin"),
+                        rs.getString("ImageUrl"),
+                        rs.getDouble("DiscountPercent"),
+                        rs.getDouble("Price"),
+                        rs.getDouble("DiscountPrice"),
+                        rs.getInt("Sold"),
+                        rs.getDouble("Rating"),
+                        rs.getInt("ReviewCount")
+                );
+                list.add(p);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+     public List<ProductDTO> getHotProducts(int limit) {
+        List<ProductDTO> list = new ArrayList<>();
+        String sql = "SELECT TOP (?) * FROM Products WHERE IsHot = 1 ORDER BY CreatedAt DESC";
+        try (Connection conn = DBUtils.getConnection(); PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, limit);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ProductDTO p = new ProductDTO(
+                        rs.getInt("ProductID"),
+                        rs.getString("ProductName"),
+                        rs.getString("Origin"),
+                        rs.getString("ImageUrl"),
+                        rs.getDouble("DiscountPercent"),
+                        rs.getDouble("Price"),
+                        rs.getDouble("DiscountPrice"), // hoặc Price tùy yêu cầu
+                        rs.getInt("Sold"),
+                        rs.getDouble("Rating"),
+                        rs.getInt("ReviewCount")
+                );
+                list.add(p);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+     public static void main(String[] args) throws Exception {
+        ProductDAO da= new ProductDAO();
+        System.out.println(da.getProductById(2).toString());
     }
 
 }

@@ -3,7 +3,7 @@
     Created on : Jun 20, 2025, 8:56:59 AM
     Author     : Asus
 --%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
